@@ -1,0 +1,39 @@
+resource "aws_iam_role" "mysql" {
+    name = local.myql_role_name
+    assume_role_policy = jsonencode({
+        Version = "2012-10-17"
+        Statement = [
+            {
+            Action = "sts:AssumeRole"
+            Effect = "Allow"
+            Sid = ""
+            Principal = {
+                Service = "ec2.amazonaws.com"
+            }
+            }
+        ]
+    }   
+    )
+    tags = merge (
+        {
+            Name = local.mysql_role_name
+        },
+        local.common_tags
+    )
+}
+#creating iam policy
+resource "aws_iam_role" "mysql"{
+    name = local.mysql.policy_name
+    description = "A"policy for MYSQL Ec2 instance"
+    policy = templatefile("mysql-iam-policy.json",{environment = var.environment})
+}
+#attaching policy to the role
+resource "aws_iam_policy_attachment" "mysql" {
+    role = aws_iam_role.mysql.name
+    policy_arn = aws_iam_policy.mysql.arn
+}
+#creating  instance profile
+resource "aws_iam_instance_profile" "mysql" {
+    name = "${var.project}-${var.environment}-mysql"
+    role = aws_iam_role.mysql.name
+}
