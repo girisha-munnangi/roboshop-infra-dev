@@ -7,7 +7,7 @@ resource "aws_lb" "backend_alb" {
     enable_deletion_protection = false
     tags = merge (
         {
-            Name = "${var.project} - {var.environment}"
+            Name = "${var.project}-${var.environment}"
         },
         local.common_tags
     )
@@ -17,7 +17,7 @@ resource "aws_lb_listener" "http" {
     port = "80"
     protocol = "HTTP"
     default_action {
-        type = "fixed_response"
+        type = "fixed-response"
         fixed_response {
             content_type = "text/html"
             message_body = "<h1> Hi, I am from HTTP backend ALB </h1"
