@@ -43,7 +43,7 @@ resource "aws_ami_from_instance" "catalogue" {
     depends_on = [aws_ec2_instance_state.catalogue]
     tags=merge(
         {
-            Name = "${var.project}-${var.enviroment}-catalogue"
+            Name = "${var.project}-${var.environment}-catalogue"
         },
         local.common_tags
     )

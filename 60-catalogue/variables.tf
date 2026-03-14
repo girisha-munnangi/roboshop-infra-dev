@@ -11,4 +11,6 @@ variable "zone_id" {
 variable "domain_name" {
     default = "girisha.online"
 }
-
+variable "app_version" {
+    default = "v3"
+}
