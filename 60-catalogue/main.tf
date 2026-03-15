@@ -48,6 +48,7 @@ resource "aws_ami_from_instance" "catalogue" {
         local.common_tags
     )
 }
+#create target group
 resource "aws_lb_target_group" "catalogue" {
     name = "${var.project}-${var.environment}-catalogue"
     port = 8080
@@ -65,3 +66,36 @@ resource "aws_lb_target_group" "catalogue" {
         unhealthy_threshold = 3
     }
 }
+#create launch template which requires all fields to create an ec2 instance & image id 
+resource "aws_launch_template" "catalogue" {
+    name = "${var.project}-${var.environment}-catalogue"
+    image_id = aws_instance_from_instance_catalogue.id
+    instance_initiated_shutdown_behavior = "terminate"
+    instance_type = "t3.micro"
+    vpc_security_group_ids = [local.catalogue.sg_id]
+    update_default_version = true
+    tags_specifications {
+        resource_type = "instance"
+        tags= merge(
+            {#ec2 instance name 
+                Name = "${var.project}-${var.environment}-catalogue"
+            },
+            local.common_tags
+        )
+    }
+    tags_specifications {
+        resource_type = "volume"
+        tags= merge (
+            {#ebs volume name 
+                Name = "${var.project}-${var.environment}-catalogue"
+            },
+            local.common_tags
+        )
+    }
+    tags = merge (
+        {
+            Name = "${var.project}-${var.environment}-catalogue"
+        },
+        local.common_tags
+    )
+} 
