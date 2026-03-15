@@ -3,7 +3,7 @@ locals {
     catalogue_sg_id = data.aws_ssm_parameter.catalogue_sg_id.value
     ami_id = data.aws_ami.joindevops.id
     private_subnet_id = split (",", data.aws_ssm_parameter.private_subnet_ids.value)[0]
-    listner_arn = local.backend_alb_listener_arn
+    listener_arn = local.backend_alb_listener_arn
     common_tags = {
         project = var.project
         Environment = var.environment
