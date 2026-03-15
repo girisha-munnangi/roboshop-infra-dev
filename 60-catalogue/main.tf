@@ -69,7 +69,7 @@ resource "aws_lb_target_group" "catalogue" {
 #create launch template which requires all fields to create an ec2 instance & image id 
 resource "aws_launch_template" "catalogue" {
     name = "${var.project}-${var.environment}-catalogue"
-    image_id = aws_ami_from_instance_catalogue.id
+    image_id = aws_ami_from_instance.catalogue.id
     instance_initiated_shutdown_behavior = "terminate"
     instance_type = "t3.micro"
     vpc_security_group_ids = [local.catalogue.sg_id]
