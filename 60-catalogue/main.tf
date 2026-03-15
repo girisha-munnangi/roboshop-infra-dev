@@ -144,7 +144,7 @@ resource "aws_autoscaling_policy" "catalogue" {
     name = "${var.project}-${var.environment}-catalogue"
     policy_type = "TargetTracingScaling"
     estimated_instance_warmup = 120
-    target_tracing_configuration {
+    target_tracking_configuration {
         predefined_metric_specification {
             predefined_metric_type = "ASGAverageCPUUtilization"
         }
