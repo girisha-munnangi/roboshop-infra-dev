@@ -3,7 +3,7 @@ resource "aws_lb" "frontend_alb" {
     internal = false
     load_balancer_type = "application"
     security_groups = [local.frontend_alb_sg_id]
-    subnets = local.public_subnet_ids
+    subnets = local.public_subnet_id
     enable_deletion_protection = false
     tags = merge (
         {
@@ -14,7 +14,7 @@ resource "aws_lb" "frontend_alb" {
 }
 #lets create load balancer listener
 resource "aws_lb_listener" "https" {
-    load_balancer_arn = aws_lb_frontend_alb.arn
+    load_balancer_arn = aws_lb.frontend_alb.arn
     port = "443"
     protocol = "HTTPS"
     ssl_policy = "ELBsecurityPolicy-2016-08"
