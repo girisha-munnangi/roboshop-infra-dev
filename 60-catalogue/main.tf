@@ -27,7 +27,7 @@ resource "terraform_data" "catalogue" {
     provisioner "remote-exec" {
         inline = [
             "chmod +x /tmp/bootstrap.sh",
-            "sudo sh /tmp/bootstrap.sh catalogue"
+            "sudo sh /tmp/bootstrap.sh catalogue ${var.environment} ${var.app-version}"
         ]
     }
 

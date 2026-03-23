@@ -8,7 +8,7 @@ terraform {
 
   backend "s3" {
     bucket  = "girisha-aws-vpc" # Replace with your unique bucket name
-    key     = "roboshop-dev-frontend-alb"
+    key     = "roboshop-dev-acm"
     region  = "us-east-1"
     encrypt = true
     use_lockfile   = true
