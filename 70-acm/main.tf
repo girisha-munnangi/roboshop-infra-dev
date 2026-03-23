@@ -4,7 +4,7 @@ resource "aws_acm_certificate" "roboshop" {
     validation_method = "DNS"
     tags = merge (
         {
-            Name = "${var.project} - ${var.environment} - ${var.domain-name}"
+            Name = "${var.project} - ${var.environment} - ${var.domain_name}"
         },
         local.common_tags
     ) 
