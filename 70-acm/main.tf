@@ -12,7 +12,7 @@ resource "aws_acm_certificate" "roboshop" {
         create_before_destroy = true
     }
 }
-#creating route53 records
+#creating route53 records using cname record
 resource "aws_route53_record" "roboshop" {
     for_each = {
         for dvo in aws_acm_certificate.roboshop.domain_validation_options:dvo.domain_name => {
